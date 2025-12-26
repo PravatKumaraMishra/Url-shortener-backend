@@ -2,10 +2,12 @@ spring:
   application:
     name: URLShortner
   datasource:
-    url: jdbc:mysql://localhost:3306/URLShortner
+    url: jdbc:mysql://localhost:3306/URLShortner?createDatabaseIfNotExist=true
     username: root
     password: asdfasdf
   jpa:
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
