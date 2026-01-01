@@ -1,7 +1,9 @@
 package me.pravat.uShort.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClickEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +21,5 @@ public class ClickEvent {
 
     @ManyToOne
     @JoinColumn(name = "uriMapper_id")
-    private UriMapper uriMapper;
+    private UrlMapper urlMapper;
 }

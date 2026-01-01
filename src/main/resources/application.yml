@@ -11,3 +11,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+jwt:
+  secret: HdllWXs8Obvjm6PahGVpLUc1JR2FLjhnKmCE509YCD5
+#  expiration: 172800000
