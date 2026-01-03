@@ -40,4 +40,8 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return "User added successfully!";
     }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("Email not exists"));
+    }
 }
