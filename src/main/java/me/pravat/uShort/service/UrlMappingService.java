@@ -6,8 +6,8 @@ import me.pravat.uShort.entity.UrlMapper;
 import me.pravat.uShort.entity.User;
 import me.pravat.uShort.repository.UrlMappingRepository;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -43,5 +43,10 @@ public class UrlMappingService {
         for(int i=0; i<5; i++)
             shortRandom.append(characters.charAt(random.nextInt(characters.length())));
         return shortRandom.toString();
+    }
+
+    public List<UrlMappingDto> getAllUrls(User user) {
+        var urls = urlMappingRepository.findAllByUser(user);
+        return urls.stream().map(this::convertToDto).toList();
     }
 }
