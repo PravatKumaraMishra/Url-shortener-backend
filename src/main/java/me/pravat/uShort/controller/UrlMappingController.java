@@ -41,6 +41,11 @@ public class UrlMappingController {
         var url = urlMappingService.getOriginalUrl(shortUrl);
         if (url != null) {
             var httpHeaders = new HttpHeaders();
+            // Ensure URL has a protocol scheme
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "https://" + url;
+            }
+            
             httpHeaders.add("Location", url);
             return ResponseEntity.status(302).headers(httpHeaders).build();
         }
