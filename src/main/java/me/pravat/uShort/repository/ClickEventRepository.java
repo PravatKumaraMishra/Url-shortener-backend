@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
 public interface ClickEventRepository extends JpaRepository<ClickEvent, Long> {
-   List<ClickEvent> findByUrlMapperInAndClickDateBetween(Collection<UrlMapper> urlMapper, LocalDateTime clickDate, LocalDateTime clickDate2);
+   List<ClickEvent> findByUrlMapperInAndClickDateBetween(List<UrlMapper> urlMapper, LocalDateTime startDate, LocalDateTime endDate);
 
     List<ClickEvent> findByUrlMapperAndClickDateBetween(UrlMapper urlMapper, LocalDateTime start, LocalDateTime end);
 }

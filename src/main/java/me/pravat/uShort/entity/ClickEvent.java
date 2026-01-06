@@ -20,6 +20,6 @@ public class ClickEvent {
     private LocalDateTime clickDate;
 
     @ManyToOne
-    @JoinColumn(name = "uriMapper_id")
+    @JoinColumn(name = "urlMapper_id")
     private UrlMapper urlMapper;
 }

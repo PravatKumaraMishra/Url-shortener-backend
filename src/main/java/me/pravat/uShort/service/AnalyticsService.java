@@ -29,13 +29,16 @@ public class AnalyticsService {
     public List<ClickEventDto> getClickEventByDate(String shortUrl, LocalDateTime start, LocalDateTime end) {
         var urlMapper = urlMapperRepository.findByShortUrl(shortUrl);
         if (urlMapper != null) {
-            var clickEvents = clickEventRepository.findByUrlMapperAndClickDateBetween(urlMapper, start, end);
-            return clickEvents.stream().collect(Collectors.groupingBy(click->click.getClickDate().toLocalDate(), Collectors.counting())).entrySet().stream().map(entry -> {
-                var clickEventDto = new ClickEventDto();
-                clickEventDto.setClickDate(entry.getKey().atStartOfDay());
-                clickEventDto.setCount(entry.getValue());
-                return clickEventDto;
-            }).collect(Collectors.toList());
+        var clickEvents = clickEventRepository.findByUrlMapperAndClickDateBetween(urlMapper, start, end);
+        return clickEvents.stream()
+                .collect(Collectors.groupingBy(click -> click.getClickDate().toLocalDate(), Collectors.counting()))
+                .entrySet().stream()
+                .map(entry -> {
+                    var clickEventDto = new ClickEventDto();
+                    clickEventDto.setClickDate(entry.getKey());
+                    clickEventDto.setCount(entry.getValue());
+                    return clickEventDto;
+                }).collect(Collectors.toList());
         }
         return null;
     }
