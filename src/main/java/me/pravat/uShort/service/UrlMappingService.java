@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import me.pravat.uShort.dto.UrlMappingDto;
 import me.pravat.uShort.entity.UrlMapper;
 import me.pravat.uShort.entity.User;
-import me.pravat.uShort.repository.ClickEventRepository;
 import me.pravat.uShort.repository.UrlMapperRepository;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +15,6 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class UrlMappingService {
     private final UrlMapperRepository urlMapperRepository;
-    private final ClickEventRepository clickEventRepository;
 
     public UrlMappingDto createShortUrl(String longUrl, User user) {
         String shortUrl = generateRandom();
