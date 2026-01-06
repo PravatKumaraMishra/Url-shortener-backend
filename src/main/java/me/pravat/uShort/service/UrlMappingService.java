@@ -2,6 +2,7 @@ package me.pravat.uShort.service;
 
 import lombok.RequiredArgsConstructor;
 import me.pravat.uShort.dto.UrlMappingDto;
+import me.pravat.uShort.entity.ClickEvent;
 import me.pravat.uShort.entity.UrlMapper;
 import me.pravat.uShort.entity.User;
 import me.pravat.uShort.repository.UrlMapperRepository;
@@ -15,6 +16,18 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class UrlMappingService {
     private final UrlMapperRepository urlMapperRepository;
+
+    public String getOriginalUrl(String shortUrl){
+        var urlMapper = urlMapperRepository.findByShortUrl(shortUrl);
+        if (urlMapper != null){
+            urlMapper.setClickCount(urlMapper.getClickCount()+1);
+            urlMapperRepository.save(urlMapper);
+            var clickEvent = new ClickEvent();
+            clickEvent.setClickDate(LocalDateTime.now());
+            clickEvent.setUrlMapper(urlMapper);
+        }
+        return urlMapper.getLongUrl();
+    }
 
     public UrlMappingDto createShortUrl(String longUrl, User user) {
         String shortUrl = generateRandom();

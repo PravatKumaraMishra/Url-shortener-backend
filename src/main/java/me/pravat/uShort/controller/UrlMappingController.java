@@ -5,6 +5,7 @@ import me.pravat.uShort.dto.UrlMappingDto;
 import me.pravat.uShort.entity.User;
 import me.pravat.uShort.service.UrlMappingService;
 import me.pravat.uShort.service.UserService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,17 @@ public class UrlMappingController {
         var user = userService.findUserByEmail(principal.getName());
         var urls = urlMappingService.getAllUrls(user);
         return ResponseEntity.ok(urls);
+    }
+
+    @GetMapping("/{shortUrl}")
+    public ResponseEntity<Void> redirect(@PathVariable String shortUrl){
+        var url = urlMappingService.getOriginalUrl(shortUrl);
+        if (url != null) {
+            var httpHeaders = new HttpHeaders();
+            httpHeaders.add("Location", url);
+            return ResponseEntity.status(302).headers(httpHeaders).build();
+        }
+        else
+            return ResponseEntity.notFound().build();
     }
 }
