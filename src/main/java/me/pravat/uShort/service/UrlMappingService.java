@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.pravat.uShort.dto.UrlMappingDto;
 import me.pravat.uShort.entity.UrlMapper;
 import me.pravat.uShort.entity.User;
-import me.pravat.uShort.repository.UrlMappingRepository;
+import me.pravat.uShort.repository.ClickEventRepository;
+import me.pravat.uShort.repository.UrlMapperRepository;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,7 +14,9 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class UrlMappingService {
-    private final UrlMappingRepository urlMappingRepository;
+    private final UrlMapperRepository urlMapperRepository;
+    private final ClickEventRepository clickEventRepository;
+
     public UrlMappingDto createShortUrl(String longUrl, User user) {
         String shortUrl = generateRandom();
         var urlMapper = new UrlMapper();
@@ -21,7 +24,7 @@ public class UrlMappingService {
         urlMapper.setShortUrl(shortUrl);
         urlMapper.setCreatedAt(LocalDateTime.now());
         urlMapper.setUser(user);
-        var savedUrlMapper = urlMappingRepository.save(urlMapper);
+        var savedUrlMapper = urlMapperRepository.save(urlMapper);
         return convertToDto(savedUrlMapper);
     }
 
@@ -46,7 +49,7 @@ public class UrlMappingService {
     }
 
     public List<UrlMappingDto> getAllUrls(User user) {
-        var urls = urlMappingRepository.findAllByUser(user);
+        var urls = urlMapperRepository.findAllByUser(user);
         return urls.stream().map(this::convertToDto).toList();
     }
 }
