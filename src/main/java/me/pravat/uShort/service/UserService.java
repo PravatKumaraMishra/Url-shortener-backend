@@ -37,6 +37,7 @@ public class UserService implements UserDetailsService {
     public String addUser(User user) {
         // Encrypt password before saving
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setRoles("ROLES_USER");
         userRepository.save(user);
         return "User added successfully!";
     }

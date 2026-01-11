@@ -14,3 +14,5 @@ spring:
 jwt:
   secret: HdllWXs8Obvjm6PahGVpLUc1JR2FLjhnKmCE509YCD5
 #  expiration: 172800000
+frontend:
+  url: http://localhost:5173
