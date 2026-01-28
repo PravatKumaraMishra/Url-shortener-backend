@@ -51,6 +51,7 @@ public class SecurityConfig {
                         //.requestMatchers("/auth/admin/**").hasAuthority("ROLES_ADMIN")
 
                         // All other endpoints require authentication
+                        .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                         .anyRequest().authenticated()
                 )
 
