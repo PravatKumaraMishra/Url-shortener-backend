@@ -1,6 +1,8 @@
 package me.pravat.uShort.service;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import me.pravat.uShort.entity.User;
 import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,11 +14,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Data
 public class UserDetailsImp implements UserDetails {
 
-    private final String email; // Changed from 'name' to 'email' for clarity
-    private final String password;
-    private final List<GrantedAuthority> authorities;
+    private String email;
+    private String password;
+    private List<GrantedAuthority> authorities;
 
     public UserDetailsImp(User user) {
         this.email = user.getEmail(); // Use email as username

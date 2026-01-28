@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -20,16 +18,8 @@ public class UserService implements UserDetailsService {
     // Method to load user details by username (email)
     @Override
     public UserDetailsImp loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        // Fetch user from the database by email (username)
-        Optional<User> userInfo = userRepository.findByEmail(username);
-
-        if (userInfo.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with email: " + username);
-        }
-
-        // Convert UserInfo to UserDetails (UserInfoDetails)
-        User user = userInfo.get();
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         return new UserDetailsImp(user);
     }
 
