@@ -24,8 +24,9 @@ public class AnalyticsController {
 
     @GetMapping("/urls")
     @PreAuthorize("hasRole('ROLES_USER')")
-    public ResponseEntity<Map<LocalDate, Long>> getTotalClicksByDate(Principal principal, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate ){
-        var formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public ResponseEntity<Map<LocalDate, Long>> getTotalClicksByDate(Principal principal,
+            @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+        var formatter = DateTimeFormatter.ISO_DATE_TIME;
         var user = userService.findUserByEmail(principal.getName());
         var start = LocalDate.parse(startDate, formatter);
         var end = LocalDate.parse(endDate, formatter);
@@ -35,8 +36,9 @@ public class AnalyticsController {
 
     @GetMapping("/{shortUrl}")
     @PreAuthorize("hasRole('ROLES_USER')")
-    public ResponseEntity<List<ClickEventDto>> getUrlAnalyticsByDate(@PathVariable String shortUrl, @RequestParam("startDate")String startDate, @RequestParam("endDate")String endDate) {
-        var formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    public ResponseEntity<List<ClickEventDto>> getUrlAnalyticsByDate(@PathVariable String shortUrl,
+            @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+        var formatter = DateTimeFormatter.ISO_DATE_TIME;
         var start = LocalDateTime.parse(startDate, formatter);
         var end = LocalDateTime.parse(endDate, formatter);
         var clickEventDTOs = analyticsService.getClickEventByDate(shortUrl, start, end);
