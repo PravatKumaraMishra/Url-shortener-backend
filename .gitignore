@@ -31,8 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
-mvnw
-mvnw.cmd
 .gitattributes
-.mvn/
 .DS_Store
+.env
+.env.local
